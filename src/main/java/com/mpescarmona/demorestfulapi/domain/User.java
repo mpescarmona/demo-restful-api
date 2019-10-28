@@ -3,6 +3,7 @@ package com.mpescarmona.demorestfulapi.domain;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
@@ -10,6 +11,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -21,9 +26,19 @@ public class User {
     @Id
     @GeneratedValue
     Long userId;
+    @NotEmpty
     private String name;
+    @Email(message = "Email should be valid")
     private String email;
+    @Pattern(message = "Invalid password. Must contains at least one uppercase letter, lowercase letters, two numbers",
+    regexp = "^(?=.*[0-9].{2,})(?=.*[a-z])(?=.*[A-Z]+)(?=\\S+$).{8,}$")
     private String password;
+    private Date created;
+    private Date updated;
+    private Date lastLogin;
+    private String token;
+    @Getter
+    private boolean active;
     @OneToMany(targetEntity = Phone.class, mappedBy = "user", fetch = FetchType.EAGER)
     private List<Phone> phones;
 }

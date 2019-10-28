@@ -1,6 +1,6 @@
-INSERT INTO USER (USER_ID, NAME, EMAIL, PASSWORD) VALUES (1, 'John Doe', 'john.doe@testmail.com', 'j0hnd03s3cr3t');
-INSERT INTO USER (USER_ID, NAME, EMAIL, PASSWORD) VALUES (2, 'Peter Smith', 'peter.smith@testmail.com', 'p3t3rsm1ths3cr3t');
-INSERT INTO USER (USER_ID, NAME, EMAIL, PASSWORD) VALUES (3, 'Frank Perkins', 'frank.perkins@testmail.com', 'fr4nkp3rk1nss3cr3t');
+INSERT INTO USER (USER_ID, NAME, EMAIL, PASSWORD, ACTIVE, CREATED, UPDATED, LAST_LOGIN, TOKEN) VALUES (1, 'John Doe', 'john.doe@testmail.com', 'j0hnd03s3cr3t', true, '2019-10-24', '2019-10-24', '2019-10-24', 'asdfghjkl');
+INSERT INTO USER (USER_ID, NAME, EMAIL, PASSWORD, ACTIVE, CREATED, UPDATED, LAST_LOGIN, TOKEN) VALUES (2, 'Peter Smith', 'peter.smith@testmail.com', 'p3t3rsm1ths3cr3t', true, '2019-10-24', '2019-10-24', '2019-10-24', 'qwertyuiop');
+INSERT INTO USER (USER_ID, NAME, EMAIL, PASSWORD, ACTIVE, CREATED, UPDATED, LAST_LOGIN, TOKEN) VALUES (3, 'Frank Perkins', 'frank.perkins@testmail.com', 'fr4nkp3rk1nss3cr3t', true, '2019-10-24', '2019-10-24', '2019-10-24', 'zxcvbnm');
 
 INSERT INTO PHONE (PHONE_ID, USER_ID, COUNTRYCODE, CITYCODE, NUMBER) VALUES (1, 1, 56, 1, 12345678);
 INSERT INTO PHONE (PHONE_ID, USER_ID, COUNTRYCODE, CITYCODE, NUMBER) VALUES (2, 2, 56, 1, 22345678);

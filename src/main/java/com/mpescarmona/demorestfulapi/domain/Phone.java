@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotEmpty;
 
 @Data
 @Builder
@@ -23,7 +24,10 @@ public class Phone {
     @ManyToOne
     @JoinColumn(name = "userId")
     private User user;
+    @NotEmpty
     private Integer number;
+    @NotEmpty
     private Integer citycode;
+    @NotEmpty
     private Integer countrycode;
 }
