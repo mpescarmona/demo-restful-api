@@ -5,7 +5,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -24,8 +27,13 @@ import java.util.List;
 @Entity
 public class User {
     @Id
-    @GeneratedValue
-    Long userId;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    @Column(name = "userId", updatable = false, nullable = false)
+    private String userId;
     @NotEmpty
     private String name;
     @Email(message = "Email should be valid")
@@ -39,6 +47,6 @@ public class User {
     private String token;
     @Getter
     private boolean active;
-    @OneToMany(targetEntity = Phone.class, mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToMany(targetEntity = Phone.class, mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Phone> phones;
 }

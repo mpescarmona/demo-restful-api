@@ -4,13 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Data
 @Builder
@@ -19,15 +22,20 @@ import javax.validation.constraints.NotEmpty;
 @Entity
 public class Phone {
     @Id
-    @GeneratedValue
-    private Long phoneId;
-    @ManyToOne
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    @Column(name = "phoneId", updatable = false, nullable = false)
+    private String phoneId;
+    @NotNull
+    private Integer number;
+    @NotNull
+    private Integer citycode;
+    @NotNull
+    private Integer countrycode;
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
     private User user;
-    @NotEmpty
-    private Integer number;
-    @NotEmpty
-    private Integer citycode;
-    @NotEmpty
-    private Integer countrycode;
 }
