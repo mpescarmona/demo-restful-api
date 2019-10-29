@@ -26,7 +26,7 @@ public class UserServiceTest {
 
     @Test
     public void whenApplicationStarts_thenHibernateShouldReturnOnePhoneForUseOne() {
-        Optional<User> optionalUser = userService.finUser(Long.valueOf(1));
+        Optional<User> optionalUser = userService.findUser("User0001-1111-1111-1111-111111111111");
 
         assertTrue(optionalUser.isPresent());
 
@@ -34,10 +34,11 @@ public class UserServiceTest {
         assertEquals("John Doe", user.getName());
         assertEquals("john.doe@testmail.com", user.getEmail());
         assertEquals("j0hnd03s3cr3t", user.getPassword());
+        assertTrue(user.isActive());
 
         assertEquals(1, user.getPhones().size());
         assertEquals(user, user.getPhones().get(0).getUser());
-        assertEquals(1, user.getPhones().get(0).getPhoneId());
+        assertEquals("Phone001-1111-1111-1111-111111111111", user.getPhones().get(0).getPhoneId());
         assertEquals(1, user.getPhones().get(0).getCitycode());
         assertEquals(56, user.getPhones().get(0).getCountrycode());
         assertEquals(12345678, user.getPhones().get(0).getNumber());
