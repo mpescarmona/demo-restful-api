@@ -13,7 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 @Data
 @Builder
@@ -29,11 +29,11 @@ public class Phone {
     )
     @Column(name = "phoneId", updatable = false, nullable = false)
     private String phoneId;
-    @NotNull
+    @Positive(message = "Phone number should not be positive")
     private Integer number;
-    @NotNull
+    @Positive(message = "Phone city code should not be positive")
     private Integer citycode;
-    @NotNull
+    @Positive(message = "Phone country code should not be positive")
     private Integer countrycode;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")

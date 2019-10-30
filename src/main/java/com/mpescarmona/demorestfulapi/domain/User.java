@@ -34,12 +34,12 @@ public class User {
     )
     @Column(name = "userId", updatable = false, nullable = false)
     private String userId;
-    @NotEmpty
+    @NotEmpty(message = "User name must not be empty")
     private String name;
     @Email(message = "Email should be valid")
     private String email;
-    @Pattern(message = "Invalid password. Must contains at least one uppercase letter, lowercase letters, two numbers",
-    regexp = "^(?=.*[0-9].{2,})(?=.*[a-z])(?=.*[A-Z]+)(?=\\S+$).{8,}$")
+    @Pattern(message = "Invalid password. Must contains at least one uppercase letter, two lowercase letters, two numbers",
+            regexp = "^(?=.*[0-9]){2,}(?=.*[a-z])+(?=.*[A-Z])+(?=\\S+$)([0-9a-zA-Z]){5,}$")
     private String password;
     private Date created;
     private Date updated;
