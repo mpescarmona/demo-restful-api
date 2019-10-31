@@ -1,9 +1,11 @@
 package com.mpescarmona.demorestfulapi.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Column;
@@ -19,6 +21,7 @@ import javax.validation.constraints.Positive;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 @Entity
 public class Phone {
     @Id
@@ -29,13 +32,18 @@ public class Phone {
     )
     @Column(name = "phoneId", updatable = false, nullable = false)
     private String phoneId;
+
     @Positive(message = "Phone number should not be positive")
     private Integer number;
+
     @Positive(message = "Phone city code should not be positive")
     private Integer citycode;
+
     @Positive(message = "Phone country code should not be positive")
     private Integer countrycode;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userId")
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "userId", nullable = false)
+    @JsonIgnore
     private User user;
 }
