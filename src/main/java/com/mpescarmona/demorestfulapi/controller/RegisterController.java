@@ -33,9 +33,7 @@ public class RegisterController {
     @PostMapping(path = "/register",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> registerNewUser(@RequestBody
-                                             @Valid
-                                                     User user) {
+    public ResponseEntity<?> registerNewUser(@RequestBody @Valid User user) {
         log.info("action=registerNewUser");
         Optional<User> optionalUser = userService.findUserByEmail(user.getEmail());
 
@@ -50,9 +48,7 @@ public class RegisterController {
     @GetMapping(path = "/{email}",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> findUserByEmail(@PathVariable
-                                             @Email(message = "Email should be valid")
-                                                     String email) {
+    public ResponseEntity<?> findUserByEmail(@PathVariable @Email(message = "Email should be valid") String email) {
         log.info("action=findUserByEmail");
         User user = userService.findUserByEmail(email)
                 .orElseThrow(() -> new UserNotFoundException(email));
