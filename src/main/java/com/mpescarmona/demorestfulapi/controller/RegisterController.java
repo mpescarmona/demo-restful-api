@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import java.util.Optional;
+import java.util.UUID;
 
 @Slf4j
 @RestController
@@ -40,6 +41,8 @@ public class RegisterController {
         if (optionalUser.isPresent()) {
             throw new UserAlreadyRegisteredException(user.getEmail());
         }
+
+        user.setToken(UUID.randomUUID().toString());
 
         User newUser = userService.registerUser(user);
         return new ResponseEntity<>(newUser, HttpStatus.OK);
