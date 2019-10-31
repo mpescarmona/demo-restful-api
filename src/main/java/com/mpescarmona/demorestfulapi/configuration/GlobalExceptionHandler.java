@@ -2,6 +2,7 @@ package com.mpescarmona.demorestfulapi.configuration;
 
 import com.mpescarmona.demorestfulapi.domain.response.ErrorMessage;
 import com.mpescarmona.demorestfulapi.exception.UserAlreadyRegisteredException;
+import com.mpescarmona.demorestfulapi.exception.UserNotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,15 @@ import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
+
+    // Let Spring BasicErrorController handle the exception, we just override the status code
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<ErrorMessage> springHandleNotFound(Exception ex) {
+        ErrorMessage errors = new ErrorMessage();
+        errors.setError(ex.getMessage());
+
+        return new ResponseEntity<>(errors, HttpStatus.NOT_FOUND);
+    }
 
     @ExceptionHandler(UserAlreadyRegisteredException.class)
     public ResponseEntity<ErrorMessage> springHandleUserAlreadyRegistered(Exception ex) {
