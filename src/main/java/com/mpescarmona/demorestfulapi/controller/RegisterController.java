@@ -4,6 +4,10 @@ import com.mpescarmona.demorestfulapi.domain.User;
 import com.mpescarmona.demorestfulapi.exception.UserAlreadyRegisteredException;
 import com.mpescarmona.demorestfulapi.exception.UserNotFoundException;
 import com.mpescarmona.demorestfulapi.service.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +26,7 @@ import javax.validation.constraints.Email;
 import java.util.Optional;
 import java.util.UUID;
 
+@Api(value = "Register Controller")
 @Slf4j
 @RestController
 @Validated
@@ -31,6 +36,8 @@ public class RegisterController {
     @Autowired
     private UserService userService;
 
+    @ApiOperation(value = "Registers a new user")
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "User registered successfully")})
     @PostMapping(path = "/register",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -48,6 +55,8 @@ public class RegisterController {
         return new ResponseEntity<>(newUser, HttpStatus.OK);
     }
 
+    @ApiOperation(value = "Gets a registered user by email")
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "User successfully retrieved")})
     @GetMapping(path = "/{email}",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
